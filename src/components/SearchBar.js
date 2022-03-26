@@ -1,23 +1,37 @@
 import React, { useState } from 'react'
-import { useWeather } from '../context/WeatherContext'
+import { useDispatch } from "react-redux";
+import { setCity } from "../redux/weatherSlice";
+import { fetchData } from "../redux/weatherSlice";
 
 function SearchBar() {
-    const {setCity} = useWeather()
-    const [query, setQuery] = useState()
-        
-    return (
-        <div>
-            <form className="search">
-                <input placeholder="City" onChange={(e) => {
-                    setQuery(e.target.value)
-                }} />
-                <button onClick={(e) => {
-                    e.preventDefault()
-                    setCity(query)
-                }}>Search</button>
-            </form>
-        </div>
-    )
+  const [query, setQuery] = useState();
+  const dispatch = useDispatch();
+
+  const onClickHandler = (e) => {
+    e.preventDefault();
+    dispatch(setCity(query));
+    dispatch(fetchData(query));
+  };
+
+  return (
+    <div>
+      <form className="search">
+        <input
+          placeholder="City"
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+        />
+        <button
+          onClick={(e) => {
+            onClickHandler(e);
+          }}
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default SearchBar

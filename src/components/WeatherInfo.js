@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import WeatherCard from "./WeatherCard";
-import { useDispatch } from "react-redux";
 
 function WeatherInfo() {
   const city = useSelector((state) => state.weather.city);
@@ -8,7 +7,6 @@ function WeatherInfo() {
   const isCityFound = useSelector((state) => state.weather.isCityFound);
   const status = useSelector((state) => state.weather.status);
   const error = useSelector((state) => state.weather.error);
-  const dispatch = useDispatch();
 
   if (status === "loading") {
     return <div className="weatherInfo">Loading...</div>;
@@ -56,5 +54,3 @@ function WeatherInfo() {
 }
 
 export default WeatherInfo;
-
-//
